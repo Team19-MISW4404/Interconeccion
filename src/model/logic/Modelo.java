@@ -87,7 +87,7 @@ public class Modelo {
 		Landing landing = null;
 		try {
 			landing = (Landing) ((NodoTS) points.darListaNodos().getElement(1)).getValue();
-			fragmento += "\n Info primer landing point " + "\n Identificador: " + landing.getId() + "\n Nombre: "
+			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + "\n Nombre: "
 					+ landing.getName()
 					+ " \n Latitud " + landing.getLatitude() + " \n Longitud" + landing.getLongitude();
 

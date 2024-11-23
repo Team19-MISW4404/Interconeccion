@@ -46,7 +46,7 @@ public class Modelo {
 	private ITablaSimbolos landingidtabla;
 
 	private ITablaSimbolos nombrecodigo;
-	public static String NOMBRE = "\n Nombre: ";
+	public static final String NOMBRE = "\n Nombre: ";
 
 	/**
 	 * Constructor del modelo del mundo con capacidad dada

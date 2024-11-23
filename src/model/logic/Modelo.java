@@ -46,7 +46,7 @@ public class Modelo {
 	private ITablaSimbolos landingidtabla;
 
 	private ITablaSimbolos nombrecodigo;
-	final String NOMBRE_LABEL = "\n Nombre: ";
+	public static String NOMBRE = "\n Nombre: ";
 
 	/**
 	 * Constructor del modelo del mundo con capacidad dada
@@ -88,7 +88,7 @@ public class Modelo {
 		Landing landing = null;
 		try {
 			landing = (Landing) ((NodoTS) points.darListaNodos().getElement(1)).getValue();
-			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + NOMBRE_LABEL
+			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + NOMBRE
 					+ landing.getName()
 					+ " \n Latitud " + landing.getLatitude() + " \n Longitud" + landing.getLongitude();
 
@@ -162,7 +162,7 @@ public class Modelo {
 					for (int j = 1; j <= ((ILista) lista.getElement(i)).size(); j++) {
 						cantidad += ((Vertex) ((ILista) lista.getElement(i)).getElement(j)).edges().size();
 					}
-					fragmento += "\n Landing " + NOMBRE_LABEL + landing.getName() + "\n País: " + landing.getPais()
+					fragmento += "\n Landing " + NOMBRE + landing.getName() + "\n País: " + landing.getPais()
 							+ "\n Id: " + landing.getId() + "\n Cantidad: " + cantidad;
 
 					contador++;
@@ -375,7 +375,7 @@ public class Modelo {
 		for (int i = 1; i <= afectados.size(); i++) {
 			try {
 
-				fragmento += NOMBRE_LABEL + ((Country) afectados.getElement(i)).getCountryName()
+				fragmento += NOMBRE + ((Country) afectados.getElement(i)).getCountryName()
 						+ "\n Distancia al landing point: " + ((Country) afectados.getElement(i)).getDistlan();
 			} catch (PosException | VacioException e) {
 				e.printStackTrace();

@@ -41,9 +41,15 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
                      	 elementos[i] = copia[i];
                     } 
                }	
-               elementos[tamanoAct] = dato;
+               // Validar el índice antes de asignar el dato al arreglo
+				if (tamanoAct >= 0 && tamanoAct < tamanoMax) {
+					elementos[tamanoAct] = dato; // Asignar el nuevo elemento
+					tamanoAct++; // Incrementar el tamaño actual del arreglo
+				} else {
+					throw new ArrayIndexOutOfBoundsException("Índice inválido al agregar el elemento.");
+				}
        }
-
+	   
 		public int darCapacidad() {
 			return tamanoMax;
 		}
@@ -424,10 +430,6 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		public void changeInfo(int pos, T element) throws PosException, VacioException, NullException 
 		{
 			if (pos<1 || pos >tamanoMax)
-			{
-				 throw new PosException("La posición no es válida");
-			}
-			else if (pos >tamanoMax)
 			{
 				 throw new PosException("La posición no es válida");
 			}

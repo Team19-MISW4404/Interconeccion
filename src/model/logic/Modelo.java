@@ -337,7 +337,7 @@ public class Modelo {
 					Vertex vertice2 = ((Edge) arcos.getElement(j)).getDestination();
 
 					Country pais = null;
-					if (vertice2.getInfo().getClass().getName().equals("model.data_structures.Landing")) {
+					if (vertice2.getInfo().getClass().getName().equals(LANDING_CLASS_NAME)) {
 						Landing landing = (Landing) vertice2.getInfo();
 						pais = (Country) paises.get(landing.getPais());
 						countries.insertElement(pais, countries.size() + 1);

@@ -86,8 +86,10 @@ public class Modelo {
 		fragmento += "\n La cantidad total de países es:  " + paises.size();
 		Landing landing = null;
 		try {
+			final String NOMBRE_LABEL = "\n Nombre: ";
+
 			landing = (Landing) ((NodoTS) points.darListaNodos().getElement(1)).getValue();
-			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + "\n Nombre: "
+			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + NOMBRE_LABEL
 					+ landing.getName()
 					+ " \n Latitud " + landing.getLatitude() + " \n Longitud" + landing.getLongitude();
 
@@ -162,7 +164,9 @@ public class Modelo {
 						cantidad += ((Vertex) ((ILista) lista.getElement(i)).getElement(j)).edges().size();
 					}
 
-					fragmento += "\n Landing " + "\n Nombre: " + landing.getName() + "\n País: " + landing.getPais()
+					final String NOMBRE_LABEL = "\n Nombre: ";
+
+					fragmento += "\n Landing " + NOMBRE_LABEL + landing.getName() + "\n País: " + landing.getPais()
 							+ "\n Id: " + landing.getId() + "\n Cantidad: " + cantidad;
 
 					contador++;
@@ -374,7 +378,9 @@ public class Modelo {
 
 		for (int i = 1; i <= afectados.size(); i++) {
 			try {
-				fragmento += "\n Nombre: " + ((Country) afectados.getElement(i)).getCountryName()
+				final String NOMBRE_LABEL = "\n Nombre: ";
+
+				fragmento += NOMBRE_LABEL + ((Country) afectados.getElement(i)).getCountryName()
 						+ "\n Distancia al landing point: " + ((Country) afectados.getElement(i)).getDistlan();
 			} catch (PosException | VacioException e) {
 				e.printStackTrace();

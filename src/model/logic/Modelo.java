@@ -46,6 +46,7 @@ public class Modelo {
 	private ITablaSimbolos landingidtabla;
 
 	private ITablaSimbolos nombrecodigo;
+	final String NOMBRE_LABEL = "\n Nombre: ";
 
 	/**
 	 * Constructor del modelo del mundo con capacidad dada
@@ -86,8 +87,6 @@ public class Modelo {
 		fragmento += "\n La cantidad total de países es:  " + paises.size();
 		Landing landing = null;
 		try {
-			final String NOMBRE_LABEL = "\n Nombre: ";
-
 			landing = (Landing) ((NodoTS) points.darListaNodos().getElement(1)).getValue();
 			fragmento += "\n Info primer landing point \n Identificador: " + landing.getId() + NOMBRE_LABEL
 					+ landing.getName()
@@ -163,9 +162,6 @@ public class Modelo {
 					for (int j = 1; j <= ((ILista) lista.getElement(i)).size(); j++) {
 						cantidad += ((Vertex) ((ILista) lista.getElement(i)).getElement(j)).edges().size();
 					}
-
-					final String NOMBRE_LABEL = "\n Nombre: ";
-
 					fragmento += "\n Landing " + NOMBRE_LABEL + landing.getName() + "\n País: " + landing.getPais()
 							+ "\n Id: " + landing.getId() + "\n Cantidad: " + cantidad;
 
@@ -378,7 +374,6 @@ public class Modelo {
 
 		for (int i = 1; i <= afectados.size(); i++) {
 			try {
-				final String NOMBRE_LABEL = "\n Nombre: ";
 
 				fragmento += NOMBRE_LABEL + ((Country) afectados.getElement(i)).getCountryName()
 						+ "\n Distancia al landing point: " + ((Country) afectados.getElement(i)).getDistlan();

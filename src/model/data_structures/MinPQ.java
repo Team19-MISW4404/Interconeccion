@@ -8,7 +8,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 	
 	public MinPQ(int inicial)
 	{
-		arbol= new ArregloDinamico<NodoTS<K, V>>(inicial);
+		arbol = new ArregloDinamico<>(inicial);
 		tamano=0;
 	}
 	
@@ -30,8 +30,8 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 				}
 				pos=pos/2;
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Ocurrió un error al procesar el elemento: " + e.getMessage());
+				throw new RuntimeException("Error crítico en la operación", e);
 			}
 		}
 	}
@@ -40,13 +40,15 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 	{
 		try 
 		{
-			arbol.insertElement(new NodoTS<K, V>(key, value), arbol.size()+1);
+			arbol.insertElement(new NodoTS<>(key, value), arbol.size() + 1);
 			tamano++;
 			swim(arbol, tamano);
 		} 
 		catch (PosException | NullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.err.println("Error en la operación: " + e.getMessage());
+    		throw new RuntimeException("Se produjo un error crítico al procesar la operación", e);
+
 		}
 		
 		
@@ -81,7 +83,7 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 		int size= lista.size();
 		
 		boolean sinkCompleto=false;
-		while(2*pos<=size && sinkCompleto==false)
+		while (2 * pos <= size && !sinkCompleto)
 		{
 			int hizq=2*pos;
 			int hder=hizq +1;
@@ -109,8 +111,8 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 					pos=posMenor;
 				}
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Se produjo un error: " + e.getMessage());
+				throw new RuntimeException("Error al procesar la operación", e);
 			}
 		}
 	}
@@ -127,8 +129,8 @@ public class MinPQ<K extends Comparable<K> ,V extends Comparable <V>>
 				sink(arbol, 1);
 
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Error ocurrido: " + e.getMessage());
+				throw new RuntimeException("Ocurrió un error crítico en la operación", e);
 			}
 		}
 		else if(tamano>0)

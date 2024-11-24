@@ -1,6 +1,5 @@
 package model.data_structures;
 
-import java.sql.Time;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -83,10 +82,51 @@ public class YoutubeVideo implements Comparable <YoutubeVideo>
 		
 		llave=pLLave;
 	}
+	public String getId() {
+        return id;
+    }
+
+	public String gettituloCanal() {
+        return tituloCanal;
+    }
 	
+	public Date gettiempoPub() {
+        return tiempoPub;
+    }
+
 	public Date darTrendingDate()
 	{
 		return trending_date;
+	}
+	
+	public int getcomentarios()
+	{
+		return comentarios;
+	}
+	
+	public String getlink()
+	{
+		return link;
+	}
+	
+	public boolean getcomentariosDesac()
+	{
+		return comentariosDesac;
+	}
+
+	public boolean getratingsDesac()
+	{
+		return ratingsDesac;
+	}
+	
+	public boolean geterror()
+	{
+		return error;
+	}
+	
+	public String getdescripcion()
+	{
+		return descripcion;
 	}
 
 

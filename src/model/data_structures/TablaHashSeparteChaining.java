@@ -2,8 +2,6 @@ package model.data_structures;
 
 import java.text.DecimalFormat;
 
-import sun.security.util.Debug;
-
 public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Comparable <V>> implements ITablaSimbolos<K, V >
 {
 	
@@ -44,13 +42,13 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 			
 			if(listasc!=null && !contains(key))
 			{
-				listasc.insertElement(new NodoTS<K,V>(key, value), listasc.size()+1);
+				listasc.insertElement(new NodoTS<>(key, value), listasc.size() + 1);
 			}
 			else
 			{
-				listaNodos.changeInfo(posicion, new ArregloDinamico<NodoTS<K,V>>(1));
+				listaNodos.changeInfo(posicion, new ArregloDinamico<>(1));
 				listasc=listaNodos.getElement(posicion);
-				listasc.insertElement(new NodoTS<K,V>(key, value), listasc.size()+1);
+				listasc.insertElement(new NodoTS<>(key, value), listasc.size() + 1);
 			}
 		} 
 		catch (PosException | VacioException | NullException e) 
@@ -144,11 +142,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 	@Override
 	public boolean isEmpty() 
 	{
-		if (size()==0)
-		{
-			return true;
-		}
-		return false;
+		return size() == 0;
 	}
 
 	@Override
@@ -160,7 +154,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 	@Override
 	public ILista<K> keySet() 
 	{
-		ILista<K> lista= new ArregloDinamico(1);
+		ILista<K> lista = new ArregloDinamico<K>(1);
 		try
 		{
 			for (int i=1; i<= tamanoTabla; i++)
@@ -179,8 +173,15 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 		}
 		catch (PosException | NullException | VacioException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Exception caught: " + e.getMessage());
+    
+			if (e instanceof PosException) {
+				System.err.println("Position error: " + e.getMessage());
+			} else if (e instanceof NullException) {
+				System.err.println("Null value encountered: " + e.getMessage());
+			} else if (e instanceof VacioException) {
+				System.err.println("Empty structure error: " + e.getMessage());
+			}
 		}
 		
 		return lista;
@@ -189,7 +190,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 	@Override
 	public ILista<V> valueSet() 
 	{
-		ILista<V> lista= new ArregloDinamico(1);
+		ILista<V> lista = new ArregloDinamico<V>(1);
 		
 		try 
 		{
@@ -219,7 +220,7 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
 	@Override
 	public ILista<NodoTS<K, V>> darListaNodos() 
 	{
-		ILista<NodoTS<K, V>> nodos= new ArregloDinamico<NodoTS<K, V>>(1);
+		ILista<NodoTS<K, V>> nodos = new ArregloDinamico<>(1);
 		try 
 		{
 			for (int i=1; i<= tamanoTabla; i++)
@@ -298,20 +299,19 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
         for (int i = 5; i * i <= n; i = i + 6)
 
             if (n % i == 0 || n % (i + 2) == 0)
-
-            return false;
+				return false;
 
         return true;
     }
 
-    static int nextPrime(int N)
+    static int nextPrime(int n)
 
     {
-        if (N <= 1)
+        if (n <= 1)
 
             return 2;
 
-        int prime = N;
+        int prime = n;
 
         boolean found = false;
 
@@ -339,8 +339,8 @@ public class TablaHashSeparteChaining <K extends Comparable<K>, V extends Compar
     	double tam= tamanoAct;
 		double tam2=tamanoTabla;
 		DecimalFormat df= new DecimalFormat("###.##");
-		double tamañoCarga= tam/tam2;
-		retorno+="\nEl factor de carga es: " + df.format(tamañoCarga);
+		double tamanoCarga= tam/tam2;
+		retorno+="\nEl factor de carga es: " + df.format(tamanoCarga);
     	retorno+="\nLa cantidad de rehash es: " + cantidadRehash;
     	
     	return retorno;

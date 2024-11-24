@@ -1,5 +1,8 @@
 package model.data_structures;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 {
 	public void enqueue(T element)
@@ -7,8 +10,10 @@ public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			this.addLastCola(element);
 		} catch (NullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			Logger logger = Logger.getLogger(getClass().getName());
+    		logger.log(Level.SEVERE, "NullPointerException occurred: " + e.getMessage(), e);
+
 		}
 	}
 	
@@ -19,8 +24,10 @@ public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		{
 			retorno= this.deleteElement(1);
 		} catch (PosException | VacioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			Logger logger = Logger.getLogger(getClass().getName());
+    		logger.log(Level.SEVERE, "NullPointerException occurred: " + e.getMessage(), e);
+
 		}
 		
 		return retorno;
@@ -32,8 +39,8 @@ public class ColaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			retorno = this.getElement(1);
 		} catch (PosException | VacioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger logger = Logger.getLogger(getClass().getName());
+    		logger.log(Level.SEVERE, "NullPointerException occurred: " + e.getMessage(), e);
 		}
 		
 		return retorno;

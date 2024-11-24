@@ -1,5 +1,7 @@
 package model.data_structures;
 
+import java.util.logging.Level;
+
 public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable <V>>
 {
 	private ITablaSimbolos<K, Vertex<K, V>> vertices; 
@@ -12,7 +14,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	
 	public GrafoListaAdyacencia(int numVertices)
 	{
-		vertices= new TablaHashLinearProbing<K, Vertex<K, V>>(numVertices);	
+		vertices = new TablaHashLinearProbing<>(numVertices);
 		numEdges=0;
 		arcos= new ArregloDinamico<>(1);
 		verticesLista= new ArregloDinamico<>(1);
@@ -35,13 +37,13 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	
 	public void insertVertex(K id, V value)
 	{
-		vertices.put(id, new Vertex<K, V>(id, value));
+		vertices.put(id, new Vertex<>(id, value));
 		try {
 			Vertex<K, V> vertice= getVertex(id);
 			verticesLista.insertElement(vertice, verticesLista.size()+1);
 		} catch (PosException | NullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+            throw new RuntimeException("Error crítico en el proceso", e);
 		}
 
 	}
@@ -55,18 +57,18 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 			Vertex<K, V> origin= getVertex(source);
 			
 			Vertex<K, V> destination= getVertex(dest);
-			Edge<K, V> arco1= new Edge<K, V>(origin, destination, weight);
+			Edge<K, V> arco1 = new Edge<>(origin, destination, weight);
 			origin.addEdge(arco1);
 			
-			Edge<K, V> arco2=new Edge<K, V>(destination, origin, weight);
+			
+			Edge<K, V> arco2 = new Edge<>(destination, origin, weight);
 			destination.addEdge(arco2);
 			numEdges++;
 			try 
 			{
 				arcos.insertElement(arco1, arcos.size()+1);
 			} catch (PosException | NullException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException("Error crítico en el proceso", e);
 			}
 		}
 		
@@ -127,16 +129,13 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 		return verticesLista;
 	}
 	
-	public void unmark()
-	{
-		ILista<Vertex<K, V>> vertices= vertices();
-		for(int i=1; i<=vertices.size(); i++)
-		{
+	public void unmark() {
+		ILista<Vertex<K, V>> localVertices = vertices(); // Renombramos la variable local
+		for (int i = 1; i <= localVertices.size(); i++) {
 			try {
-				vertices.getElement(i).unmark();
+				localVertices.getElement(i).unmark();
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException("Error crítico en el proceso", e);
 			}
 		}
 	}
@@ -173,8 +172,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 		} 
 		catch (PosException | VacioException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Error crítico en el proceso", e);
 		}
 		
 		return minimo;
@@ -198,8 +196,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 		} 
 		catch (PosException | VacioException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Error crítico en el proceso", e);
 		}
 		
 		return maximo;
@@ -208,9 +205,10 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	
 	public GrafoListaAdyacencia<K, V> reverse()
 	{
-		GrafoListaAdyacencia<K, V> copia= new GrafoListaAdyacencia<K, V>(numVertices());
+	
+		GrafoListaAdyacencia<K, V> copia = new GrafoListaAdyacencia<>(numVertices());
 		ILista<Vertex<K, V>> vertices2= vertices();
-		ILista<Edge<K, V>> arcos= edges();
+		ILista<Edge<K, V>> LocalArcos= edges();
 
 		for(int i=1; i<= vertices2.size(); i++)
 		{
@@ -220,20 +218,18 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 				actual = vertices2.getElement(i);
 				copia.insertVertex(actual.getId(), actual.getInfo());
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException("Error crítico en el proceso", e);
 			}
 		}
 		
-		for(int i=1; i<= arcos.size(); i++)
+		for(int i=1; i<= LocalArcos.size(); i++)
 		{
 			Edge<K, V> actual;
 			try {
-				actual = arcos.getElement(i);
+				actual = LocalArcos.getElement(i);
 				copia.addEdge(actual.getDestination().getId(), actual.getSource().getId(), actual.getWeight());
 			} catch (PosException | VacioException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new RuntimeException("Error crítico en el proceso", e);
 			}
 		}
 		
@@ -244,7 +240,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	public ITablaSimbolos<K, Integer> getSSC()
 	{
 		PilaEncadenada<Vertex<K, V>> reverseTopological= reverse().topologicalOrder();
-		ITablaSimbolos<K, Integer> tabla= new TablaHashLinearProbing<K, Integer>(numVertices());
+		ITablaSimbolos<K, Integer> tabla = new TablaHashLinearProbing<>(numVertices());
 		int idComponente=1;
 		while(reverseTopological.top()!=null)
 		{
@@ -263,19 +259,20 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	
 	public PilaEncadenada<Vertex<K, V>> topologicalOrder()
 	{
-		ColaEncadenada<Vertex<K, V>> pre= new ColaEncadenada<Vertex<K, V>>();
-		ColaEncadenada<Vertex<K, V>> post= new ColaEncadenada<Vertex<K, V>>();
-		PilaEncadenada<Vertex<K, V>> reversePost= new PilaEncadenada<Vertex<K, V>>();
+	
+		ColaEncadenada<Vertex<K, V>> pre = new ColaEncadenada<>();
+		ColaEncadenada<Vertex<K, V>> post = new ColaEncadenada<>();
+		PilaEncadenada<Vertex<K, V>> reversePost= new PilaEncadenada<>();
 		
-		ILista<Vertex<K, V>> vertices= vertices();
+		ILista<Vertex<K, V>> LocalVertices= vertices();
 		
-		for(int i=1; i<= vertices.size(); i++)
+		for(int i=1; i<= LocalVertices.size(); i++)
 		{
 			try 
 			{
-				if(!vertices.getElement(i).getMark())
+				if(!LocalVertices.getElement(i).getMark())
 				{
-					vertices.getElement(i).topologicalOrder(pre, post, reversePost);
+					LocalVertices.getElement(i).topologicalOrder(pre, post, reversePost);
 				}
 			} catch (PosException | VacioException e) {
 				e.printStackTrace();
@@ -304,7 +301,7 @@ public class GrafoListaAdyacencia <K extends Comparable<K> ,V extends Comparable
 	{
 		ITablaSimbolos<K, NodoTS<Float, Edge<K, V>>> tree= minPathTree(idOrigen);
 		
-		PilaEncadenada<Edge <K, V>> path= new PilaEncadenada<Edge<K, V>>();
+		PilaEncadenada<Edge <K, V>> path= new PilaEncadenada<>();
 		K idBusqueda= idDestino;
 		NodoTS<Float, Edge<K, V>> actual;
 		

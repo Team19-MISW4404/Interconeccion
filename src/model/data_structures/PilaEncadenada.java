@@ -7,8 +7,11 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		try {
 			this.addLastCola(element);
 		} catch (NullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Se produjo un error de tipo NullException: " + e.getMessage());
+        	e.printStackTrace();
+    	
+    		throw new RuntimeException("Error crítico: operación no puede continuar debido a un valor nulo", e);
+
 		}
 	}
 	
@@ -18,10 +21,11 @@ public class PilaEncadenada<T extends Comparable <T>> extends ListaEncadenada<T>
 		{
 			return this.removeLastPila();
 		} catch (VacioException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Error: Operación no válida, la estructura está vacía. Detalles: " + e.getMessage());
+      		e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	
 	public T top()

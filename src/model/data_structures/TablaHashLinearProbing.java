@@ -43,7 +43,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 				posicion=getNextEmpty(posicion);
 			}
 
-			NodoTS<K, V> nuevo= new NodoTS<K, V>(key, value);
+			NodoTS<K, V> nuevo = new NodoTS<>(key, value);
 			listaNodos.changeInfo(posicion, nuevo);
 			tamanoAct++;
 
@@ -119,8 +119,8 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 			} 
 			catch (PosException | VacioException e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("Se produjo un error durante la operación: " + e.getMessage());
+				throw new RuntimeException("Error crítico al procesar la operación en la estructura de datos", e);
 			}
 		}
 
@@ -183,7 +183,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 	{
 		V valor=get(key);
 		boolean retornar=false;
-		if (!valor.equals(null))
+		if (valor != null)
 		{
 			retornar=true;
 		}
@@ -205,7 +205,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 	public ILista<K> keySet() 
 	{
 
-		ILista<K> lista= new ArregloDinamico(1);
+		ILista<K> lista = new ArregloDinamico<K>(1);
 		try 
 		{
 			for (int i=1; i<= tamanoTabla; i++)
@@ -227,7 +227,8 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 	@Override
 	public ILista<V> valueSet() 
 	{
-		ILista<V> lista= new ArregloDinamico(1);
+	
+		ILista<V> lista = new ArregloDinamico<V>(1);
 		for (int i=1; i<= tamanoTabla; i++)
 		{
 			try 
@@ -240,8 +241,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 			} 
 			catch (PosException | NullException | VacioException e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("An error occurred: " + e.getMessage());
 			}
 		}
 		return lista;
@@ -256,8 +256,7 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 	@Override
 	public ILista<NodoTS<K, V>> darListaNodos() 
 	{
-		ILista<NodoTS<K, V>> nodos= new ArregloDinamico<NodoTS<K, V>>(1);
-		
+		ILista<NodoTS<K, V>> nodos= new ArregloDinamico<>(1);
 		try 
 		{
 			for (int i=1; i<= tamanoTabla; i++)
@@ -329,14 +328,15 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		return true;
 	}
 
-	static int nextPrime(int N)
+	static int nextPrime(int n)
+
 
 	{
-		if (N <= 1)
+		if (n <= 1)
 
 			return 2;
 
-		int prime = N;
+		int prime = n;
 
 		boolean found = false;
 
@@ -374,8 +374,8 @@ public class TablaHashLinearProbing <K extends Comparable<K>, V extends Comparab
 		double tam= tamanoAct;
 		double tam2=tamanoTabla;
 		DecimalFormat df= new DecimalFormat("###.##");
-		double tamañoCarga= tam/tam2;
-		retorno+="\nEl factor de carga es: " + df.format(tamañoCarga);
+		double tamanoCarga= tam/tam2;
+		retorno+="\nEl factor de carga es: " + df.format(tamanoCarga);
 		retorno+="\nLa cantidad de rehash es: " + cantidadRehash;
 
 		return retorno;

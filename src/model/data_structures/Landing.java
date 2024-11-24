@@ -68,10 +68,12 @@ public class Landing implements Comparable <Landing>
 	}
 
 	@Override
-	public int compareTo(Landing o) 
-	{
-		System.out.print("holis");
-		return 0;
+	public int compareTo(Landing o) {
+		// Compara los objetos por landingId
+		if (this.landingId == null || o.landingId == null) {
+			throw new NullPointerException("El campo landingId no puede ser nulo.");
+		}
+		return this.landingId.compareTo(o.landingId);
 	}
 
 	public String getPais() 

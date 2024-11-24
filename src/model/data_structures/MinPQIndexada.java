@@ -1,17 +1,19 @@
 package model.data_structures;
 
-public class MinPQIndexada<K extends Comparable<K>, IK extends Comparable <IK>, V extends Comparable <V>> extends MinPQ<K, V>
+public class MinPQIndexada<K extends Comparable<K>, I extends Comparable<I>, V extends Comparable<V>> extends MinPQ<K, V>
+
 {
     public MinPQIndexada(int inicial) {
 		super(inicial);
 	}
 
-	public void insert(K key, IK indexedKey, V value) {
+	public void insert(K key, I indexedKey, V value) {
         try {
-			arbol.insertElement(new NodoIndexedMinPQ<K, IK, V>(key, indexedKey, value), arbol.size() +1);
+			arbol.insertElement(new NodoIndexedMinPQ<>(key, indexedKey, value), arbol.size() +1);
+            
 		} catch (PosException | NullException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Se produjo un error: " + e.getMessage());
+            throw new RuntimeException("Error manejado en el catch", e);
 		}
         tamano += 1;
         swim(arbol, tamano);

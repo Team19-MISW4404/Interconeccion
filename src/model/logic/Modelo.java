@@ -344,8 +344,9 @@ public class Modelo {
 
 						float distancia = distancia(pais.getLongitude(), pais.getLatitude(), landing.getLongitude(),
 								landing.getLatitude());
-
-						pais.setDistlan(distancia);
+		
+						pais.getDistlan();
+						
 					} else {
 						pais = (Country) vertice2.getInfo();
 					}
@@ -554,10 +555,21 @@ public class Modelo {
 				float population = Float.parseFloat(record.get(6).replace(".", ""));
 
 				double users = Double.parseDouble(record.get(7).replace(".", ""));
-				;
+				
+				double distlan = Double.parseDouble(record.get(8).replace(".", ""));
 
-				Country pais = new Country(countryName, capitalName, latitude, longitude, code, continentName,
-						population, users);
+	
+				Country pais = new Country.Builder()
+					.countryName(countryName)
+					.capitalName(capitalName)
+					.latitude(latitude)
+					.longitude(longitude)
+					.code(code)
+					.continentName(continentName)
+					.population(population)
+					.users(users)
+					.distlan(distlan)
+					.build();
 
 				grafo.insertVertex(capitalName, pais);
 				paises.put(countryName, pais);

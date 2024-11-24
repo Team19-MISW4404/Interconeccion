@@ -19,13 +19,13 @@ public class MinPQIndexada<K extends Comparable<K>, I extends Comparable<I>, V e
         swim(arbol, tamano);
     }
     
-    public void changePriority(IK indexedKey, K newKey, V value) 
+    public void changePriority(I indexedKey, K newKey, V value) 
     {
     	try
     	{
     		int posicionBuscado = -1;
             for(int i = 1; i <= arbol.size() && posicionBuscado == -1; i++) {
-                NodoIndexedMinPQ<K, IK, V> actual = (NodoIndexedMinPQ<K, IK, V>) arbol.getElement(i);
+                NodoIndexedMinPQ<K, I, V> actual = (NodoIndexedMinPQ<K, I, V>) arbol.getElement(i);
                 if(actual.getIndexedKey().compareTo(indexedKey) == 0) {
                     posicionBuscado = i;
                 }

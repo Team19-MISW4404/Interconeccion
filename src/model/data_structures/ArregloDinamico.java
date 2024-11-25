@@ -40,7 +40,7 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 			T[] copia = elementos;
 			elementos = (T[]) new Comparable[tamanoMax];
 			for (int i = 0; i < tamanoAct; i++) {
-				elementos[i] = copia[i];
+				System.arraycopy(copia, 0, elementos, 0, copia.length);
 			}
 		}
 		elementos[tamanoAct] = dato;

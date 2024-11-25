@@ -148,7 +148,7 @@ public class Modelo {
 	}
 
 	public String req2String() {
-		String fragmento = "";
+		StringBuilder fragmento = new StringBuilder();
 
 		ILista lista = landingidtabla.valueSet();
 
@@ -165,8 +165,15 @@ public class Modelo {
 						cantidad += ((Vertex) ((ILista) lista.getElement(i)).getElement(j)).edges().size();
 					}
 
-					fragmento += "\n Landing " + "\n Nombre: " + landing.getName() + "\n País: " + landing.getPais()
-							+ "\n Id: " + landing.getId() + "\n Cantidad: " + cantidad;
+					fragmento.append("\n Landing ")
+							.append(NOMBRE)
+							.append(landing.getName())
+							.append("\n País: ")
+							.append(landing.getPais())
+							.append("\n Id: ")
+							.append(landing.getId())
+							.append("\n Cantidad: ")
+							.append(cantidad);
 
 					contador++;
 				}
@@ -176,7 +183,7 @@ public class Modelo {
 
 		}
 
-		return fragmento;
+		return fragmento.toString();
 
 	}
 

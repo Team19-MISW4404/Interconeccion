@@ -1,7 +1,6 @@
 package model.data_structures;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 public class Country implements Comparable<Country> {
     private String countryName;
@@ -14,140 +13,96 @@ public class Country implements Comparable<Country> {
     private double users;
     private double distlan;
 
-    private Country(Builder builder) {
-        this.countryName = builder.countryName;
-        this.capitalName = builder.capitalName;
-        this.latitude = builder.latitude;
-        this.longitude = builder.longitude;
-        this.code = builder.code;
-        this.continentName = builder.continentName;
-        this.population = builder.population;
-        this.users = builder.users;
-        this.distlan = builder.distlan;
+    public Country(String pcountryName, String pcapitalName, double platitude, double plongitude,
+            String pcode, String pcontinentName, float ppopulation, double pusers) {
+        this.countryName = pcountryName;
+        this.capitalName = pcapitalName;
+        this.latitude = platitude;
+        this.longitude = plongitude;
+        this.code = pcode;
+        this.continentName = pcontinentName;
+        this.population = ppopulation;
+        this.users = pusers;
+        this.distlan = 0;
     }
 
-    public static class Builder {
-        private String countryName;
-        private String capitalName;
-        private double latitude;
-        private double longitude;
-        private String code;
-        private String continentName;
-        private float population;
-        private double users;
-        private double distlan = 0; // Default value
-
-        public Builder countryName(String countryName) {
-            this.countryName = countryName;
-            return this;
-        }
-
-        public Builder capitalName(String capitalName) {
-            this.capitalName = capitalName;
-            return this;
-        }
-
-        public Builder latitude(double latitude) {
-            this.latitude = latitude;
-            return this;
-        }
-
-        public Builder longitude(double longitude) {
-            this.longitude = longitude;
-            return this;
-        }
-
-        public Builder code(String code) {
-            this.code = code;
-            return this;
-        }
-
-        public Builder continentName(String continentName) {
-            this.continentName = continentName;
-            return this;
-        }
-
-        public Builder population(float population) {
-            this.population = population;
-            return this;
-        }
-
-        public Builder users(double users) {
-            this.users = users;
-            return this;
-        }
-
-        public Builder distlan(double distlan) {
-            this.distlan = distlan;
-            return this;
-        }
-
-        public Country build() {
-            return new Country(this);
-        }
-    }
-
-    // Getter and setter methods
     public String getCountryName() {
         return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public String getCapitalName() {
         return capitalName;
     }
 
+    public void setCapitalName(String capitalName) {
+        this.capitalName = capitalName;
+    }
+
     public double getLatitude() {
         return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     public double getLongitude() {
         return longitude;
     }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getContinentName() {
         return continentName;
     }
 
+    public void setContinentName(String continentName) {
+        this.continentName = continentName;
+    }
+
     public float getPopulation() {
         return population;
+    }
+
+    public void setPopulation(float population) {
+        this.population = population;
     }
 
     public double getUsers() {
         return users;
     }
 
-    public double getDistlan() {
-        return distlan;
+    public void setUsers(double users) {
+        this.users = users;
     }
 
     @Override
     public int compareTo(Country o) {
-        if (o == null) {
-            throw new NullPointerException("Comparing object is null");
-        }
         return this.countryName.compareTo(o.countryName);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Country country = (Country) obj;
-        return Objects.equals(countryName, country.countryName) &&
-               Objects.equals(capitalName, country.capitalName) &&
-               Objects.equals(code, country.code);
+    public double getDistlan() {
+        return distlan;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(countryName, capitalName, code);
+    public void setDistlan(double distlan) {
+        this.distlan = distlan;
     }
 
-    // Comparador por distancia
     public static class ComparadorXKm implements Comparator<Country> {
         @Override
         public int compare(Country pais1, Country pais2) {
@@ -155,7 +110,6 @@ public class Country implements Comparable<Country> {
         }
     }
 
-    // Comparador por nombre
     public static class ComparadorXNombre implements Comparator<Country> {
         @Override
         public int compare(Country pais1, Country pais2) {

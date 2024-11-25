@@ -1,5 +1,8 @@
 package model.data_structures;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 	private static final String INVALID_ELEMENT_MESSAGE = "No es válido el elemento ingresado";
 	private static final String INVALID_POCITION_MESSAGE = "La posición no es válida";
@@ -201,7 +204,10 @@ public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 					actual = actual.getNext();
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+
+				Logger logger = Logger.getLogger(getClass().getName());
+				logger.log(Level.SEVERE, "NullPointerException occurred: " + e.getMessage(), e);
+
 			}
 			retorno = actual.getInfo();
 			if (anterior != null) {

@@ -29,16 +29,13 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		tamanoAct = 0;
 	}
 
-	// Siempre se llama a insert o a delete primero, esos métodos manejan los casos
-	// de que el elemento sea null,
-	// isEmpty o que la posición no sea válida
 	public void addLast(T dato) {
 		if (tamanoAct == tamanoMax) { // caso de arreglo lleno (aumentar tamaNo)
 			tamanoMax = 2 * tamanoMax;
 			T[] copia = elementos;
 			elementos = (T[]) new Comparable[tamanoMax];
 			for (int i = 0; i < tamanoAct; i++) {
-				System.arraycopy(copia, 0, elementos, 0, copia.length);
+				System.arraycopy(copia, i, elementos, i, copia.length);
 			}
 		}
 		elementos[tamanoAct] = dato;

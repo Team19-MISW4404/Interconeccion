@@ -15,23 +15,15 @@ public class Country implements Comparable<Country> {
 
     public Country(String pcountryName, String pcapitalName, double platitude, double plongitude,
             String pcode, String pcontinentName, float ppopulation, double pusers) {
-        setCountryName(pcountryName);
-
-        setCapitalName(pcapitalName);
-
-        setLatitude(platitude);
-
-        setLongitude(plongitude);
-
-        setCode(pcode);
-
-        setContinentName(pcontinentName);
-
-        setPopulation(ppopulation);
-
-        setUsers(pusers);
-
-        setDistlan(0);
+        this.countryName = pcountryName;
+        this.capitalName = pcapitalName;
+        this.latitude = platitude;
+        this.longitude = plongitude;
+        this.code = pcode;
+        this.continentName = pcontinentName;
+        this.population = ppopulation;
+        this.users = pusers;
+        this.distlan = 0;
     }
 
     public String getCountryName() {
@@ -103,28 +95,6 @@ public class Country implements Comparable<Country> {
         return this.countryName.compareTo(o.countryName);
     }
 
-    public static class ComparadorXKm implements Comparator<Country> {
-
-        public int compare(Country pais1, Country pais2) {
-            if (pais1.getDistlan() - pais2.getDistlan() < 0) {
-                return -1;
-            } else if (pais1.getDistlan() - pais2.getDistlan() > 0) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-    }
-
-    public static class ComparadorXNombre implements Comparator<Country> {
-
-        public int compare(Country pais1, Country pais2) {
-            return pais1.getCountryName().compareTo(pais2.getCountryName());
-        }
-
-    }
-
     public double getDistlan() {
         return distlan;
     }
@@ -133,4 +103,17 @@ public class Country implements Comparable<Country> {
         this.distlan = distlan;
     }
 
+    public static class ComparadorXKm implements Comparator<Country> {
+        @Override
+        public int compare(Country pais1, Country pais2) {
+            return Double.compare(pais1.getDistlan(), pais2.getDistlan());
+        }
+    }
+
+    public static class ComparadorXNombre implements Comparator<Country> {
+        @Override
+        public int compare(Country pais1, Country pais2) {
+            return pais1.getCountryName().compareTo(pais2.getCountryName());
+        }
+    }
 }

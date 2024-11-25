@@ -1,9 +1,13 @@
 package model.data_structures;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 	private static final String INVALID_ELEMENT_MESSAGE = "No es válido el elemento ingresado";
 	private static final String INVALID_POCITION_MESSAGE = "La posición no es válida";
 	private static final String LIST_VACIA_MESSAGE = "La lista está vacía";
+	private static final Logger logger = Logger.getLogger(ListaEncadenada.class.getName());
 
 	private Nodo<T> first;
 
@@ -201,15 +205,14 @@ public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 					actual = actual.getNext();
 				}
 			} catch (Exception e) {
-				System.out.println("Error con la posición: " + e.getMessage());
+				logger.log(Level.SEVERE, "Error con la posición: " + e.getMessage(), e);
+
 			}
 			retorno = actual.getInfo();
 			anterior.disconnectNext(anterior);
 		} else {
-			Nodo<T> anterior = null;
-
 			retorno = actual.getInfo();
-			anterior.disconnectNext(anterior);
+
 		}
 		return retorno;
 

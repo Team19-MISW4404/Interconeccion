@@ -554,7 +554,6 @@ public class Modelo {
 				float population = Float.parseFloat(record.get(6).replace(".", ""));
 
 				double users = Double.parseDouble(record.get(7).replace(".", ""));
-				;
 
 				Country pais = new Country(countryName, capitalName, latitude, longitude, code, continentName,
 						population, users);

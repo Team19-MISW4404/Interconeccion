@@ -100,8 +100,7 @@ public class Country implements Comparable<Country> {
 
     @Override
     public int compareTo(Country o) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.countryName.compareTo(o.countryName);
     }
 
     public static class ComparadorXKm implements Comparator<Country> {

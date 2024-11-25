@@ -205,9 +205,7 @@ public class ListaEncadenada<T extends Comparable<T>> implements ILista<T> {
 					actual = actual.getNext();
 				}
 			} catch (Exception e) {
-				if (logger.isLoggable(Level.SEVERE)) {
-					logger.log(Level.SEVERE, "Error con la posición: " + e.getMessage(), e);
-				}
+				e.printStackTrace();
 			}
 			retorno = actual.getInfo();
 			if (anterior != null) {

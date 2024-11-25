@@ -1,7 +1,5 @@
 package model.data_structures;
 
-import java.util.Arrays;
-
 public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	public static final String POSICION_NO_VALIDA = "La posición no es válida";
 	public static final String LISTA_VACIA = "La lista está vacía";
@@ -56,12 +54,12 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 
 	public T getElement(int pos) throws PosException, VacioException {
 		if (pos < 1) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		}
 		if (pos > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else {
 			if (elementos[pos - 1] == null) {
 				return null;
@@ -97,9 +95,9 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		T elemento = null;
 
 		if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else if (dato == null) {
-			throw new NullException("No es válido el elemento ingresado");
+			throw new NullException(ELEMENTO_NO_VALIDO);
 		} else {
 			boolean ya = false;
 
@@ -150,16 +148,13 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 
 	@Override
 	public void insertElement(T elemento, int pos) throws PosException, NullException {
-		if (pos - 1 > tamanoMax) {
-			throw new PosException("La posición no es válida");
-		} else if (pos < 1) {
-			throw new PosException("La posición no es válida");
+		if (pos - 1 > tamanoMax || pos < 1) {
+			throw new PosException(POSICION_NO_VALIDA);
 		} else {
 			if (pos == 1) {
 				addFirst(elemento);
 			} else if (tamanoAct + 1 == pos) {
 				addLast(elemento);
-
 			} else {
 				if (tamanoAct == tamanoMax) {
 					tamanoMax = 2 * tamanoMax;
@@ -218,11 +213,11 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		T elemento = null;
 
 		if (pos > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (pos < 1) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else {
 			elemento = elementos[pos];
 			if (pos == 1) {
@@ -251,7 +246,7 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	public T firstElement() throws VacioException {
 		T retorno = null;
 		if (tamanoAct == 0) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else {
 			retorno = elementos[0];
 		}
@@ -262,7 +257,7 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	@Override
 	public T lastElement() throws VacioException {
 		if (tamanoAct == 0) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else {
 			return elementos[tamanoAct - 1];
 		}
@@ -278,9 +273,9 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	public int isPresent(T element) throws NullException, VacioException {
 		int pos = -1;
 		if (element == null) {
-			throw new NullException("No es válido el elemento ingresado");
+			throw new NullException(ELEMENTO_NO_VALIDO);
 		} else if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else {
 			boolean ya = false;
 			for (int i = 0; i < tamanoAct && !ya; i++) {
@@ -298,15 +293,15 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	@Override
 	public void exchange(int pos1, int pos2) throws PosException, VacioException {
 		if (pos1 > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (pos2 > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (pos1 < 1) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (pos2 < 1) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else if (pos1 != pos2 && tamanoAct > 1) {
 			T elemento1 = elementos[pos1 - 1];
 			T elemento2 = elementos[pos2 - 1];
@@ -320,13 +315,13 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 	@Override
 	public void changeInfo(int pos, T element) throws PosException, VacioException, NullException {
 		if (pos < 1 || pos > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (pos > tamanoMax) {
-			throw new PosException("La posición no es válida");
+			throw new PosException(POSICION_NO_VALIDA);
 		} else if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else if (element == null) {
-			throw new NullException("No es válido el elemento ingresado");
+			throw new NullException(ELEMENTO_NO_VALIDO);
 		} else {
 			elementos[pos - 1] = element;
 		}
@@ -335,7 +330,7 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 
 	public ILista<T> sublista(int pos, int numElementos) throws PosException, VacioException, NullException {
 		if (isEmpty()) {
-			throw new VacioException("La lista está vacía");
+			throw new VacioException(LISTA_VACIA);
 		} else if (numElementos < 0) {
 			throw new PosException("La cantidad de elementos no es válida");
 		} else if (numElementos >= size()) {

@@ -329,9 +329,7 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 
 		else if (element == null) {
 			throw new NullException(ELEMENTO_NO_VALIDO);
-		}
-
-		else {
+		} else {
 			elementos[pos - 1] = element;
 		}
 	}
@@ -344,13 +342,11 @@ public class ArregloDinamico<T extends Comparable<T>> implements ILista<T> {
 		} else if (numElementos >= size()) {
 			return this;
 		} else {
-			ILista<T> copia = new ArregloDinamico(numElementos);
+			ILista<T> copia = new ArregloDinamico<>(numElementos);
 
-			int contador = pos;
 			for (int i = 0; i < numElementos; i++) {
-				T elemento = this.getElement(contador);
-				copia.insertElement(elemento, i + 1);
-				contador++;
+				T elemento = this.getElement(pos + i);
+				copia.addLast(elemento); // Agregar elemento a la sublista
 			}
 
 			return copia;
